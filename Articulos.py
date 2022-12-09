@@ -34,9 +34,9 @@ all_articulos = [Articulo0, Articulo1, Articulo2, Articulo3]
 def crearArticulo():
     return
 
-def seleccionarArticulos():
+def agregarArticulo(num):
     os.system("cls")
-    print("Articulo?")
+    print("Articulo Nro", num + 1)
 
     for x in all_articulos:
         print(x.get('ID')," ", x.get('Descripcion'))

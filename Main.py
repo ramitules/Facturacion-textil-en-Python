@@ -9,5 +9,6 @@ while True:
     print("0. Salir")
     print("\nOpcion: ", end = '')
     opc = int(input())
+
     if opc == 0: break
     else: crearFactura()
