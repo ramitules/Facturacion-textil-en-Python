@@ -1,14 +1,20 @@
 import os
-from Facturas import *
+from funciones import *
+from MenuArticulos import menu_articulos
+
 
 while True:
     os.system("cls")
     print("Bienvenido!\n")
     print("Elija una opcion")
-    print("1. Crear factura")
+    print("1. Facturas")
+    print("2. Clientes")
+    print("3. Articulos")
     print("0. Salir")
     print("\nOpcion: ", end = '')
     opc = int(input())
 
     if opc == 0: break
-    else: crearFactura()
+    elif opc == 1: menu_articulos()
+    elif opc == 2: 
+    elif opc == 3: crearArticulo()

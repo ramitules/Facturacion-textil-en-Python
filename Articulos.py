@@ -1,47 +1,26 @@
-import os
+class art:
+	def __init__(self, id: int, desc: str, cont: str, p_u: int):
+		self.ID = id
+		self.descripcion = desc
+		self.conteo = cont
+		self.precio_unitario = p_u
 
-Articulo0 = {
-    "ID" : 0,
-    "Descripcion" : "Ploteo 91cm",
-    "Conteo" : "Metro lineal",
-    "Precio unitario" : 250
-    }
+	def mostrar(self):
+		print(f'ID: {self.ID}, Descripcion: {self.descripcion}, Conteo: {self.conteo}, Precio unitario: {self.precio_unitario}')
 
-Articulo1 = {
-    "ID" : 1,
-    "Descripcion" : "Ploteo mayor a 91cm hasta 180cm",
-    "Conteo" : "Metro lineal",
-    "Precio unitario" : 295
-    }
+	def mostrar_resumen(self):
+		print(f'ID: {self.ID}, Descripcion: {self.descripcion}')
 
-Articulo2 = {
-    "ID" : 2,
-    "Descripcion" : "Tizada Optitex",
-    "Conteo" : "Por pieza",
-    "Precio unitario" : 25
-    }
+	def leer(self):
+		try:
+			f = open('articulos.dat','rb')
+			x = f.read()
+			f.close()
+			return x
+		except: return 'Error'
 
-Articulo3 = {
-    "ID" : 3,
-    "Descripcion" : "Repeticion ploteo y tizada",
-    "Conteo" : "Metro lineal",
-    "Precio unitario" : 250
-    }
-
-
-all_articulos = [Articulo0, Articulo1, Articulo2, Articulo3]
-
-def crearArticulo():
-    return
-
-def agregarArticulo(num):
-    os.system("cls")
-    print("Articulo Nro", num + 1)
-
-    for x in all_articulos:
-        print(x.get('ID')," ", x.get('Descripcion'))
-
-    print("ID: ", end = '')
-    pos = int(input())
-
-    return all_articulos[pos]
+	def guardar(self):
+		f = open('articulos.dat', 'ab')
+		f.write(self)
+		f.close()
+		return "El articulo se ha guardado exitosamente"
