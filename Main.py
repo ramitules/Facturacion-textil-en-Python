@@ -1,7 +1,8 @@
 import os
 from funciones import *
+from MenuFacturas import menu_facturas
+from MenuClientes import menu_clientes
 from MenuArticulos import menu_articulos
-
 
 while True:
     os.system("cls")
@@ -15,6 +16,6 @@ while True:
     opc = int(input())
 
     if opc == 0: break
-    elif opc == 1: menu_articulos()
-    elif opc == 2: 
-    elif opc == 3: crearArticulo()
+    elif opc == 1: menu_facturas()
+    elif opc == 2: menu_clientes()
+    elif opc == 3: menu_articulos()

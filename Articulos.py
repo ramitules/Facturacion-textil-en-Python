@@ -17,7 +17,7 @@ class art:
 			x = f.read()
 			f.close()
 			return x
-		except: return 'Error'
+		except: return 'No existe el registro'
 
 	def guardar(self):
 		f = open('articulos.dat', 'ab')
