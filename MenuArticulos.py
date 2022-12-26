@@ -1,4 +1,5 @@
 import pickle
+import os
 from funciones import *
 from Articulos import art
 
@@ -22,24 +23,38 @@ def crear_articulo():
     with open('articulos.pkl', 'ab') as f:
         pickle.dump(articulo, f)
 
-    return print('Se ha creado el articulo con exito!')
+    input('Se ha creado el articulo con exito! Presione ENTER para continuar')
+    return True
 
 def modificar_articulo():
     articulos = []
     cargar(articulos, 'articulos')
+    if len(articulos) == 0:
+        input('No hay articulos para modificar, presione ENTER para volver')
+        return False
 
     for articulo in articulos:
         print(articulo)
 
     opc = int(input('Que articulo desea modificar? '))
-    print(menu_modificar_articulos(opc, articulos))
+    continuar = menu_modificar_articulos(opc, articulos)
+    if continuar == True:
+        return True
+    else:
+        input('Ha ocurrido un error, presione ENTER para volver')
+        return False
+
 
 def listar_articulos():
     articulos = []
     cargar(articulos, 'articulos')
+    if len(articulos) == 0:
+        input('No hay articulos para mostrar, presione ENTER para volver')
+        return False
 
     for articulo in articulos:
         print(articulo)
+    return True
 
 
 def menu_articulos():

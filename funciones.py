@@ -1,13 +1,14 @@
 import pickle
 
 def cargar(lista: list, clase: str):
-    with open(f'{clase}.pkl', 'rb') as f:
-        while True:
-            try:
-                x = pickle.load(f)
-                lista.append(x)
-            except EOFError: break
-    return
+    try:
+        with open(f'{clase}.pkl', 'rb') as f:
+            while True:
+                try:
+                    x = pickle.load(f)
+                    lista.append(x)
+                except EOFError: break
+    except: return False
 
 def menu_modificar_cliente(opc: int, cl: list):
     while True:
@@ -34,7 +35,8 @@ def menu_modificar_cliente(opc: int, cl: list):
     with open('clientes.pkl', 'wb') as f:
         for cliente in cl:
             pickle.dump(cliente, f)
-    return 'El cliente se ha modificado con exito!'
+    input('El cliente se ha modificado con exito! Presione ENTER para continuar')
+    return True
 
 def menu_modificar_articulos(opc: int, art: list):
     while True:
@@ -71,4 +73,6 @@ def menu_modificar_articulos(opc: int, art: list):
     with open('articulos.pkl', 'wb') as f:
         for articulo in art:
             pickle.dump(articulo, f)
-    return 'El articulo se ha modificado con exito!'
+    input('El articulo se ha modificado con exito! Presione ENTER para continuar')
+    return True
+

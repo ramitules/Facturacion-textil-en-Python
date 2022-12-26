@@ -21,24 +21,37 @@ def crear_cliente():
     with open('clientes.pkl', 'ab') as f:
         pickle.dump(cliente, f)
 
-    return print('Se ha creado el cliente con exito!')
+    input('Se ha creado el cliente con exito! Presione ENTER para continuar')
+    return True
 
 def modificar_cliente():
     clientes = []
     cargar(clientes, 'clientes')
+    if len(clientes) == 0:
+        input('No hay clientes para modificar, presione ENTER para volver')
+        return False
 
     for cliente in clientes:
         print(cliente)
 
     opc = int(input('Que cliente desea modificar? '))
-    print(menu_modificar_cliente(opc, clientes))
+    continuar = menu_modificar_cliente(opc, clientes)
+    if continuar == True:
+        return True
+    else:
+        input('Ha ocurrido un error, presione ENTER para volver')
+        return False
 
 def listar_clientes():
     clientes = []
     cargar(clientes, 'clientes')
+    if len(clientes) == 0:
+        input('No hay clientes para mostrar, presione ENTER para volver')
+        return False
 
     for cliente in clientes:
         print(cliente)
+    return True
 
 
 def menu_clientes():
