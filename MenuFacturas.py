@@ -1,7 +1,8 @@
 import os
 from funciones import *
+from Facturas import crear_factura
 
-def menu_clientes():
+def menu_facturas():
     while True:
         os.system("cls")
         print("Elija una opcion")
@@ -11,4 +12,5 @@ def menu_clientes():
         opc = int(input())
 
         if opc == 0: break
-        else: 'Opcion incorrecta, intente nuevamente'
+        elif opc == 1: crear_factura()
+        else: input('Opcion incorrecta, presione ENTER y vuelva a intentar')

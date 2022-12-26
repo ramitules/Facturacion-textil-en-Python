@@ -1,69 +1,74 @@
-import sys
-from openpyxl import *
-from Articulos import art
+import pickle
 
-def cantidad(archivo: str):
-    try:
-        f = open(f'{archivo}.dat', 'rb')
-        cont = f.read()
-        cant = len(cont) / sys.getsizeof(art)
-        return int(cant)
-    except: return int(0)
+def cargar(lista: list, clase: str):
+    with open(f'{clase}.pkl', 'rb') as f:
+        while True:
+            try:
+                x = pickle.load(f)
+                lista.append(x)
+            except EOFError: break
+    return
 
-def crear_articulo():
-    i = cantidad('articulos')
-    desc = str(input("Descripcion: "))
-    cont = str(input("Conteo: "))
-    p_u = int(input("Precio unitario: "))
-    art(i, desc, cont, p_u).guardar()
+def menu_modificar_cliente(opc: int, cl: list):
+    while True:
+        print('1. Cambiar nombre',
+                '\n2. ELIMINAR',
+                '\n0. Volver')
+        opc2 = int(input('Seleccione opcion: '))
+        if opc2 == 0: return
 
-def modificar_articulo():
-    return 0
+        elif opc2 == 1:
+            cl[opc].nombre = input('Nombre: ')
+            break
 
-def listar_articulos():
-    return 0
+        elif opc2 == 2:
+            print('Seguro que desea eliminar el cliente?')
+            x = int(input('1.SI - 2.NO: '))
+            if x == 1:
+                del cl[opc]
+                input('El cliente se ha eliminado con exito, presione ENTER para continuar')
+                break
 
-def crear_factura():
-    return 0
+        else: input('Opcion incorrecta, presione ENTER y vuelva a intentar')
 
-#def crearFactura():
-#    plantilla = load_workbook('Factura.xlsx')
-#    nuevaFactura = plantilla
-#    hoja = nuevaFactura.active
+    with open('clientes.pkl', 'wb') as f:
+        for cliente in cl:
+            pickle.dump(cliente, f)
+    return 'El cliente se ha modificado con exito!'
 
-#    hoja['C2'] = seleccionarCliente()
-    
-#    for x in range(14):
-#        aux = agregarArticulo(x)
-        
-#        indice = str(x+5)
-#        hoja['B'+indice] = aux.get("ID")
-#        hoja['C'+indice] = aux.get("Descripcion")
-#        hoja['D'+indice] = aux.get("Conteo")
+def menu_modificar_articulos(opc: int, art: list):
+    while True:
+        print('1. Cambiar descripcion',
+                '\n2. Cambiar conteo',
+                '\n3. Cambiar precio unitario',
+                '\n4. ELIMINAR',
+                '\n0. Volver')
+        opc2 = int(input('Seleccione opcion: '))
+        if opc2 == 0: return
 
-#        print(aux.get("Conteo"), "cantidad: ", end = "")
-#        cant = float(input())
+        elif opc2 == 1:
+            art[opc].descripcion = input('Descripcion: ')
+            break
 
-#        hoja['E'+indice] = cant
-#        hoja['F'+indice] = aux.get("Precio unitario")
-#        hoja['G'+indice] = cant * aux.get("Precio unitario")
+        elif opc2 == 2:
+            art[opc].conteo = input('Conteo: ')
+            break
 
-#        print("Agregar mas articulos?\n1.SI  2.NO: ", end = "")
-#        opc = int(input())
-#        if opc == 2: break
+        elif opc2 == 3:
+            art[opc].precio_unitario = int(input('Precio unitario: $'))
+            break
 
-#    os.system("cls")
-#    print("Que archivo se ha utilizado? ", end = "")
-#    archivoMRK = str(input())
+        elif opc2 == 4:
+            print('Seguro que desea eliminar el articulo?')
+            x = int(input('1.SI - 2.NO: '))
+            if x == 1:
+                del art[opc]
+                input('El articulo se ha eliminado con exito, presione ENTER para continuar')
+                break
 
-#    hoja['B19'] = str("Observaciones: archivo " + archivoMRK)
+        else: input('Opcion incorrecta, presione ENTER y vuelva a intentar')
 
-#    os.chdir('Facturas')
-#    nuevaFactura.save('Factura 1.xlsx')
-#    os.chdir('..')
-
-#    print("Factura creada con exito")
-
-#    input("\nPresione ENTER para continuar")
-    
-#    return
+    with open('articulos.pkl', 'wb') as f:
+        for articulo in art:
+            pickle.dump(articulo, f)
+    return 'El articulo se ha modificado con exito!'

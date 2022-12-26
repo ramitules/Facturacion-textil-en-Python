@@ -5,6 +5,11 @@ VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Facturacion textil en Python", "Facturacion textil en Python.pyproj", "{616FDA79-EB62-4B17-9725-234E18A1613C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementos de la solución", "Elementos de la solución", "{4422C775-BDA4-40A9-B371-C17057BF5515}"
+	ProjectSection(SolutionItems) = preProject
+		Facturas.py = Facturas.py
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

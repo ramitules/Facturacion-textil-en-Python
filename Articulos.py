@@ -1,26 +1,18 @@
 class art:
-	def __init__(self, id: int, desc: str, cont: str, p_u: int):
+	def __init__(self, id: int, descripcion: str, conteo: str, precio_unitario: int):
 		self.ID = id
-		self.descripcion = desc
-		self.conteo = cont
-		self.precio_unitario = p_u
+		self.descripcion = descripcion
+		self.conteo = conteo
+		self.precio_unitario = precio_unitario
 
-	def mostrar(self):
-		print(f'ID: {self.ID}, Descripcion: {self.descripcion}, Conteo: {self.conteo}, Precio unitario: {self.precio_unitario}')
+	def __getstate__(self):
+		return {'ID': self.ID, 'descripcion': self.descripcion, 'conteo': self.conteo, 'precio_unitario': self.precio_unitario}
 
-	def mostrar_resumen(self):
-		print(f'ID: {self.ID}, Descripcion: {self.descripcion}')
+	def __setstate__(self, state):
+		self.ID = state['ID']
+		self.descripcion = state['descripcion']
+		self.conteo = state['conteo']
+		self.precio_unitario = state['precio_unitario']
 
-	def leer(self):
-		try:
-			f = open('articulos.dat','rb')
-			x = f.read()
-			f.close()
-			return x
-		except: return 'Error'
-
-	def guardar(self):
-		f = open('articulos.dat', 'ab')
-		f.write(self)
-		f.close()
-		return "El articulo se ha guardado exitosamente"
+	def __str__(self):
+		return f'{self.ID}. {self.descripcion}'
