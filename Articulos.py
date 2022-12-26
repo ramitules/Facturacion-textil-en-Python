@@ -5,8 +5,8 @@ class art:
 		self.conteo = conteo
 		self.precio_unitario = precio_unitario
 
-	def __getstate__(self):
-		return {'ID': self.ID, 'descripcion': self.descripcion, 'conteo': self.conteo, 'precio_unitario': self.precio_unitario}
+	def mostrar(self):
+		print(f'ID: {self.ID}, Descripcion: {self.descripcion}, Conteo: {self.conteo}, Precio unitario: {self.precio_unitario}')
 
 	def __setstate__(self, state):
 		self.ID = state['ID']
