@@ -361,3 +361,8 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/Main.spec
+/Facturacion textil en Python.sln
+/Facturacion textil en Python.pyproj
+/clientes.pkl
+/articulos.pkl
