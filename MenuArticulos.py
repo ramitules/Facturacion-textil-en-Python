@@ -4,16 +4,16 @@ from funciones import *
 from Articulos import art
 
 def crear_articulo():
-    i = int(0)
-
     try:
-        with open('articulos.pkl', 'rb') as f:
-            while True:
-                try:
-                    pickle.load(f)
-                    i += 1
-                except EOFError: break
-    except: pass
+        f = open('articulos.pkl', 'rb')
+        while True:
+            try:
+                x = pickle.load(f)
+            except EOFError:
+                f.close()
+                i = x.ID + 1
+                break
+    except FileNotFoundError: i = int(1)
 
     desc = str(input("Descripcion: "))
     cont = str(input("Conteo: "))
@@ -23,33 +23,32 @@ def crear_articulo():
     with open('articulos.pkl', 'ab') as f:
         pickle.dump(articulo, f)
 
-    input('Se ha creado el articulo con exito! Presione ENTER para continuar')
+    print('Se ha creado el articulo con exito!')
     return True
 
 def modificar_articulo():
     articulos = []
     cargar(articulos, 'articulos')
     if len(articulos) == 0:
-        input('No hay articulos para modificar, presione ENTER para volver')
+        print('No hay articulos para modificar')
         return False
 
     for articulo in articulos:
         print(articulo)
 
-    opc = int(input('Que articulo desea modificar? '))
+    opc = input('Que articulo desea modificar? ')
     continuar = menu_modificar_articulos(opc, articulos)
     if continuar == True:
         return True
     else:
-        input('Ha ocurrido un error, presione ENTER para volver')
+        print('Ha ocurrido un error')
         return False
-
 
 def listar_articulos():
     articulos = []
     cargar(articulos, 'articulos')
     if len(articulos) == 0:
-        input('No hay articulos para mostrar, presione ENTER para volver')
+        print('No hay articulos para mostrar')
         return False
 
     for articulo in articulos:
@@ -64,13 +63,12 @@ def menu_articulos():
         print("1. Crear articulo")
         print("2. Modificar articulo")
         print("3. Listar articulos")
-        print("0. Volver al menu principal")
-        print("\nOpcion: ", end = '')
-        opc = int(input())
+        print("0. Volver al menu principal\n")
+        opc = input('Opcion: ')
 
-        if opc == 0: break
-        elif opc == 1: crear_articulo()
-        elif opc == 2: modificar_articulo()
-        elif opc == 3: listar_articulos()
+        if opc == '0': break
+        elif opc == '1': crear_articulo()
+        elif opc == '2': modificar_articulo()
+        elif opc == '3': listar_articulos()
         else: input('Opcion incorrecta, presione ENTER y vuelva a intentar')
         input('Presione ENTER para continuar')

@@ -15,4 +15,4 @@ class art:
 		self.precio_unitario = state['precio_unitario']
 
 	def __str__(self):
-		return f'{self.ID}. {self.descripcion}'
+		return f'{self.ID}. {self.descripcion}    ${self.precio_unitario}'
