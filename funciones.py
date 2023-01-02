@@ -1,4 +1,5 @@
 import pickle
+import os
 
 def cargar(lista: list, clase: str):
     try:
@@ -22,6 +23,7 @@ def menu_modificar_cliente(indice: int, cl: list):
 
         elif opc2 == '1':
             cl[indice].nombre = input('Nombre: ')
+            print('El cliente se ha modificado con exito!')
             break
 
         elif opc2 == '2':
@@ -37,7 +39,6 @@ def menu_modificar_cliente(indice: int, cl: list):
     with open('clientes.pkl', 'wb') as f:
         for cliente in cl:
             pickle.dump(cliente, f)
-    print('El cliente se ha modificado con exito!')
     return True
 
 def menu_modificar_articulos(indice: int, art: list):
@@ -52,14 +53,17 @@ def menu_modificar_articulos(indice: int, art: list):
 
         elif opc2 == '1':
             art[indice].descripcion = input('Descripcion: ')
+            print('El articulo se ha modificado con exito!')
             break
 
         elif opc2 == '2':
             art[indice].conteo = input('Conteo: ')
+            print('El articulo se ha modificado con exito!')
             break
 
         elif opc2 == '3':
             art[indice].precio_unitario = int(input('Precio unitario: $'))
+            print('El articulo se ha modificado con exito!')
             break
         
         elif opc2 == '4':
@@ -75,5 +79,11 @@ def menu_modificar_articulos(indice: int, art: list):
     with open('articulos.pkl', 'wb') as f:
         for articulo in art:
             pickle.dump(articulo, f)
-    print('El articulo se ha modificado con exito!')
     return True
+
+def volver():
+    while True:
+        try:
+            os.chdir('Facturacion')
+            break
+        except FileNotFoundError: os.chdir('..')

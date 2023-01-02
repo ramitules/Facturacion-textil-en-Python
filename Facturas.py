@@ -1,4 +1,3 @@
-from fileinput import fileno
 import os
 from funciones import cargar
 from openpyxl import *
@@ -54,8 +53,10 @@ def crear_factura():
     os.chdir('..')
     os.chdir(f'Optitex\\{clientes[opc].nombre}')
 
-    print('\nPrimer articulo')
+    acumular = float(0)
 
+    print('\nPrimer articulo')
+    
     for x in range(13):
         indice = str(x+5)
 
@@ -75,11 +76,13 @@ def crear_factura():
         hoja['E'+indice] = cant
         hoja['F'+indice] = articulos[opc].precio_unitario
         hoja['G'+indice] = cant * articulos[opc].precio_unitario
+        acumular += (cant * articulos[opc].precio_unitario)
 
         print("\nAgregar mas articulos?")
         opc = input("1.SI  2.NO: ")
         if opc == '2': break
 
+    hoja['G18'] = acumular
     archivoMRK = seleccionar_mark()
 
     hoja['B19'] = str("Observaciones: archivo " + archivoMRK)
@@ -104,6 +107,7 @@ def listar_facturas(periodo: str, fac: list, acum: float):
         mes = ahora.month
 
     for factura in fac:
+        try:
             aux = load_workbook(factura)
             hoja_aux = aux.active
             fecha_factura = str(hoja_aux['G2'])
@@ -121,13 +125,16 @@ def listar_facturas(periodo: str, fac: list, acum: float):
                     valor = hoja_aux['G18']
                     acum += valor
                     aux.close()
+        except: pass
+    return acum
+        
 
 def resumen_general(periodo: str, clientes: list):
     acumular = float(0)
 
     for cliente in clientes:
         os.chdir(f'{cliente}\\Facturas')
-        facturas = os.listdir()
+            facturas = os.listdir()
         listar_facturas(facturas, periodo, acumular)
 
     print(f'Total {periodo} acumulado: $', acumular)
@@ -138,6 +145,7 @@ def resumen_por_cliente(periodo: str, clientes: list):
     for cliente in clientes:
         print(cliente)
     opc = int(input('Seleccione cliente: '))
+    opc -=1
 
     os.chdir(f'{cliente[opc].nombre}\\Facturas')
     facturas = os.listdir()
@@ -153,10 +161,14 @@ def resumen(periodo: str):
     clientes = []
     cargar(clientes, 'clientes')
 
-    print(f'1. Resumen {periodo} general')
-    print(f'2. Resumen {periodo} por cliente')
-    print('0. Volver\n')
-    opc = input('Opcion: ')
+    os.chdir('..')
+    os.chdir('Optitex')
+
+    while True:
+        print(f'1. Resumen {periodo} general')
+        print(f'2. Resumen {periodo} por cliente')
+        print('0. Volver\n')
+        opc = input('Opcion: ')
 
     if opc == '1': resumen_general(periodo, clientes)
     elif opc == '2': resumen_por_cliente(periodo, clientes)

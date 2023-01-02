@@ -19,3 +19,5 @@ while True:
     elif opc == 2: menu_clientes()
     elif opc == 3: menu_articulos()
     else: input('Opcion incorrecta, presione ENTER y vuelva a intentar')
+
+input('Gracias por utilizar este programa! Presione ENTER para salir')

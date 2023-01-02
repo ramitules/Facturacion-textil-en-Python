@@ -49,7 +49,8 @@ def modificar_cliente():
     for cliente in clientes:
         print(cliente)
 
-    opc = input('Que cliente desea modificar? ')
+    opc = int(input('Que cliente desea modificar? '))
+    opc -= 1
     continuar = menu_modificar_cliente(opc, clientes)
     if continuar == True:
         return True
